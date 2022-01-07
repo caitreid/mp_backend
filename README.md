@@ -90,11 +90,11 @@ the client is following some of the expectations that Django has by default.
 
 When working on our "local" computer, we work on the `localhost` location. This
 is paired with a port number to identify where our server is running on our
-local machine. Our client templates use port `7165`, for example, and run at
-`http://localhost:7165`.
+local machine. Our client templates use port `3000`, for example, and run at
+`http://localhost:3000`.
 
-These templates also talk to a backend at a certain port, which is set to `4147`
-in the client templates. **We need to change the port in the URL the client
+These templates also talk to a backend at a certain port, which is set to `8000`
+in the client templates. **We might need to change the port in the URL the client
 application uses when running locally.**
 
 In the `browser-template` this means modifying the `config.js` file, and in the
