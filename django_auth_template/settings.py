@@ -12,7 +12,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import sys
+from pathlib import Path
 import dj_database_url
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # .env config:
 from dotenv import load_dotenv, find_dotenv
@@ -29,6 +36,9 @@ if os.getenv('ENV') == 'development':
   }
   # Set debug to true
   DEBUG = True
+
+  # DEBUG = 'RENDER' not in os.environ
+
   # Only allow locally running client at port 3000 for CORS
   CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 else:
@@ -46,19 +56,31 @@ else:
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 # Default database as defined above depending on development
 # or production environment
+# DATABASES = {
+#     'default': DB
+# }
+
 DATABASES = {
-    'default': DB
+    'default': dj_database_url.config(     
+    default='postgresql://postgres:postgres@localhost:5432/mp_db',        
+    conn_max_age=600)
 }
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # This uses either a .env key or Heroku config var called SECRET
-SECRET_KEY = os.getenv('SECRET')
+# SECRET_KEY = os.getenv('SECRET')
+
+SECRET_KEY = env('SECRET_KEY')
 
 # Application definition
 
@@ -87,6 +109,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'django_auth_template.urls'
@@ -151,6 +174,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -170,6 +197,16 @@ USE_TZ = True
 # optional package: http://whitenoise.evans.io/en/stable/django.html
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+if not DEBUG:
+    # Tell Django to copy statics to the `staticfiles` directory
+    # in your application directory on Render.
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+    # Turn on WhiteNoise storage backend that takes care of compressing static files
+    # and creating unique names for each version so they can safely be cached forever.
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Use the custom user model as the auth user for the admin view
 AUTH_USER_MODEL = 'api.User'
