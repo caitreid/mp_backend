@@ -11,6 +11,6 @@ urlpatterns = [
     path('sign-in/', SignIn.as_view(), name='sign-in'),
     path('sign-out/', SignOut.as_view(), name='sign-out'),
     path('change-pw/', ChangePassword.as_view(), name='change-pw'),
-    path('/profile/create/', Profiles.as_view(), name='profiles'),
+    path('profile/', Profiles.as_view(), name='profiles'),
     path('profile/<int:pk>/', ProfileDetail.as_view(), name='profile_detail')
 ]

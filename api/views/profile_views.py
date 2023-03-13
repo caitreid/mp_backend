@@ -25,6 +25,7 @@ class Profiles(generics.ListCreateAPIView):
         """Create request"""
         # Add user to request data object
         request.data['profile']['owner'] = request.user.id
+        
         # Serialize/create profile
         profile = ProfileSerializer(data=request.data['profile'])
         # If the profile data is valid according to our serializer...
@@ -48,7 +49,7 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
 
         # Run the data through the serializer so it's formatted
         data = ProfileSerializer(profile).data
-        print('profile data', data)
+        # print('profile data', data)
         return Response({ 'profile': data })
 
     def delete(self, request, pk):
