@@ -40,7 +40,9 @@ if os.getenv('ENV') == 'development':
   DEBUG = 'RENDER' not in os.environ
 
   # Only allow locally running client at port 3000 for CORS
-  CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+  CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+  )
 
 else:
   # If we are on production, use the dj_database_url package
@@ -177,7 +179,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ALLOWED_HOSTS = ['*']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+if RENDER_EXTERNAL_HOSTNAME: ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Internationalization
