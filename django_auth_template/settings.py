@@ -62,7 +62,8 @@ else:
 
 DATABASES = {
     'default': dj_database_url.config(     
-    default='postgresql://postgres:postgres@localhost:5432/mp_db',        
+    # default='postgresql://caitlinreid:postgres@localhost:5432/mp_db',    
+    default='postgresql://caitlinreid:v2_425v5_ya9mkjLg8Wk8LZehwi9L3DX@db.bit.io:5432/caitlinreid/mp_db',
     conn_max_age=600)
 }
 
@@ -78,9 +79,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # This uses either a .env key or Heroku config var called SECRET
-# SECRET_KEY = os.getenv('SECRET')
+SECRET_KEY = os.getenv('SECRET')
 
-SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = env('SECRET_KEY')
 
 # Application definition
 
