@@ -40,9 +40,9 @@ if os.getenv('ENV') == 'development':
   # DEBUG = 'RENDER' not in os.environ
 
   # Only allow locally running client at port 3000 for CORS
-  CORS_ORIGIN_WHITELIST = [
-        'http://localhost:3000'
-  ]
+#   CORS_ORIGIN_WHITELIST = [
+#         'http://localhost:3000'
+#   ]
 
  
 else:
