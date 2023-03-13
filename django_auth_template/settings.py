@@ -35,16 +35,13 @@ if os.getenv('ENV') == 'development':
       'NAME': DB_NAME,
   }
   # Set debug to true
-  DEBUG = True
+#   DEBUG = True
 
-  # DEBUG = 'RENDER' not in os.environ
+  DEBUG = 'RENDER' not in os.environ
 
   # Only allow locally running client at port 3000 for CORS
-#   CORS_ORIGIN_WHITELIST = [
-#         'http://localhost:3000'
-#   ]
+  CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 
- 
 else:
   # If we are on production, use the dj_database_url package
   # to locate the database based on Heroku setup
