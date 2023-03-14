@@ -5,6 +5,7 @@ from .models.mango import Mango
 from .models.profile import Profile
 from .models.user import User
 from .models.link import Link
+from .models.theme import Theme
 
 class MangoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,6 +22,10 @@ class LinkSerializer(serializers.ModelSerializer):
         model = Link
         fields = ('id', 'title', 'url', 'visible', 'order', 'profile')
 
+class ThemeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Theme
+        fields = ('id', 'background_color', 'button_style', 'button_bg_color', 'button_font_color', 'shadow_color', 'font_color', 'profile')
 
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation

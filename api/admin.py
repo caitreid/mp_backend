@@ -5,6 +5,7 @@ from .models.user import User
 from .models.mango import Mango
 from .models.profile import Profile
 from .models.link import Link
+from .models.theme import Theme
 
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
@@ -44,3 +45,4 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Mango)
 admin.site.register(Profile)
 admin.site.register(Link)
+admin.site.register(Theme)

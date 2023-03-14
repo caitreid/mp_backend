@@ -16,7 +16,7 @@ class Profile(models.Model):
 
   def __str__(self):
     # This must return a string
-    return f"The user '{self.owner}' has a username '{self.username}'."
+    return f"The user '{self.owner}' has a profile w/ the username '{self.username}'."
 
   def as_dict(self):
     """Returns dictionary version of Profile models"""
