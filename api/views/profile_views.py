@@ -39,11 +39,16 @@ class Profiles(generics.ListCreateAPIView):
 class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes=(IsAuthenticated,)
     # def get(self, request, pk)
-    def get(self, request, pk):
+    def get(self, request):
         """Show request"""
+        current_user = request.user.id
+        print('current user', current_user)
+        
         # Locate the profile to show (optional parameter, pk=pk, see mangos)
-        profile = get_object_or_404(Profile, pk=pk)
+        profile = get_object_or_404(Profile, owner_id=request.user.id)
         # Only want to show owned profiles?
+
+        # print('profile owner', profile.owner.id)
         if request.user != profile.owner:
             raise PermissionDenied('Unauthorized, you do not own this profile')
 
@@ -63,11 +68,14 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
         profile.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def partial_update(self, request, pk):
+    def partial_update(self, request):
         """Update Request"""
+
+        current_user = request.user.id
+        print('current user', current_user)
         # Locate Profile
         # get_object_or_404 returns a object representation of our Profile
-        profile = get_object_or_404(Profile, pk=pk)
+        profile = get_object_or_404(Profile, owner_id=request.user.id)
         # Check the profile's owner against the user making this request
         if request.user != profile.owner:
             raise PermissionDenied('Unauthorized, you do not own this profile')

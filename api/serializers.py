@@ -4,6 +4,7 @@ from rest_framework import serializers
 from .models.mango import Mango
 from .models.profile import Profile
 from .models.user import User
+from .models.link import Link
 
 class MangoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,6 +15,12 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('id', 'username', 'title', 'bio', 'visible', 'owner')
+
+class LinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Link
+        fields = ('id', 'title', 'url', 'visible', 'order', 'profile')
+
 
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation
