@@ -35,7 +35,7 @@ if os.getenv('ENV') == 'development':
       'NAME': DB_NAME,
   }
   # Set debug to true
-#   DEBUG = True
+  # DEBUG = True
 
   DEBUG = 'RENDER' not in os.environ
 
