@@ -5,27 +5,24 @@ from django.contrib.auth import get_user_model
 class Link(models.Model):
   # define fields
   # https://docs.djangoproject.com/en/3.0/ref/models/fields/
-  title = models.CharField(max_length=300)
+  name = models.CharField(max_length=100)
   url = models.CharField(max_length=300)
   visible =  models.BooleanField()
-  order = models.IntegerField()
-  profile = models.ForeignKey(
-    'Profile',
-    on_delete=models.CASCADE
+  owner = models.ForeignKey(
+      get_user_model(),
+      on_delete=models.CASCADE
   )
-
 
   def __str__(self):
     # This must return a string
-    return f"Link: '{self.title}' with url '{self.url} on '{self.profile}'."
+    return f"'{self.owner}' has a link '{self.name}'."
 
   def as_dict(self):
-    """Returns dictionary version of Profile models"""
+    """Returns dictionary version of Link models"""
     return {
         'id': self.id,
-        'title': self.title,
+        'name': self.name,
         'url': self.url,
         'visible': self.visible,
-        'order': self.order,
-        'profile': self.profile
+        'owner': self.owner
     }

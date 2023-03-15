@@ -20,7 +20,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Link
-        fields = ('id', 'title', 'url', 'visible', 'order', 'profile')
+        fields = ('id', 'name', 'url', 'visible', 'owner')
 
 class ThemeSerializer(serializers.ModelSerializer):
     class Meta:

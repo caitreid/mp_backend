@@ -16,7 +16,7 @@ urlpatterns = [
   path('profiles/', Profiles.as_view(), name='profiles'),
   path('profile/', ProfileDetail.as_view(), name='profile_detail'),
   path('links/', Links.as_view(), name='links'),
-  path('link/<int:pk>', LinkDetail.as_view(), name='link_detail'),
+  path('links/<int:pk>', LinkDetail.as_view(), name='link_detail'),
   path('themes/', Themes.as_view(), name='themes'),
   path('theme/<int:pk>', ThemeDetail.as_view(), name='theme_detail')
 ]

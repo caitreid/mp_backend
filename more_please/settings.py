@@ -214,3 +214,5 @@ if not DEBUG:
 
 # Use the custom user model as the auth user for the admin view
 AUTH_USER_MODEL = 'api.User'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
